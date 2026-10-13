@@ -1,0 +1,71 @@
+{
+  "name": "Divyansh Srivastava",
+  "firstName": "Divyansh",
+  "title": "Associate Product Manager",
+  "contact": {
+    "email": "divyanshsrivastava6528@gmail.com",
+    "phone": "+91 86049 94724",
+    "whatsapp": "918604994724",
+    "linkedin": "https://www.linkedin.com/in/divyansh-srivastava6565"
+  },
+  "responseTime": "within 24 hours",
+  "facts": [
+    "Divyansh Srivastava is an Associate Product Manager at Wells Fargo (August 2024 to present).",
+    "He works on enterprise CRM products: Salesforce CRM, Microsoft Dynamics 365 and the WalkMe digital adoption platform, plus enterprise data management.",
+    "At Wells Fargo he gathers business requirements with cross-functional stakeholders and delivers Salesforce solutions for 20,000+ enterprise users across multiple Lines of Business (IF, VF, EF, ABL, CDF and CF).",
+    "At Wells Fargo he runs Salesforce product operations: user management, change requests, data loading, data cleansing, account and contact merges, user queries, reports and dashboards.",
+    "He optimized workflows and processes, reducing manual effort by more than 40%, and built KPI dashboards and product performance reports for executive reporting.",
+    "By analysing user behaviour, support trends and stakeholder feedback he identified product enhancements that reduced support tickets by 30%.",
+    "He is the single point of contact for business support channels and writes application documentation and feature guidance.",
+    "He supports product governance and compliance: data quality, metadata standards, issue resolution and JIRA workflows.",
+    "He supported data retention and migration initiatives, translating regulatory requirements into product improvements and data controls, and led functional testing and UAT across class codes and orgs.",
+    "He led digital adoption with WalkMe across Salesforce CRM, Microsoft Dynamics 365, Client Insight and other enterprise apps, building SmartTips, Surveys, Shuttles, Walkthroughs and Launchers, and took part in Agile product reviews.",
+    "Before Wells Fargo he was a Data Management Analyst at Deloitte (July 2023 to July 2024): data governance standards, data quality analysis, requirements gathering and reporting, using Salesforce (Jupiter), Informatica MDM 360, Crunchbase, D&B Hoovers, Capital IQ, SwiftPad, DESC and TRE Bulk Upload.",
+    "Before Deloitte he was a Research Associate at Jasper Colin Research (January 2022 to May 2023), running B2B and consumer market research data collection (CATI and CAWI) for domestic and international clients.",
+    "At Jasper Colin he worked on projects in automotive collision, insurance tech, IT education, telecom, FMCG, email security products (SEG, ICES, DMARC, browser isolation), global manufacturing and construction, and US brand equity.",
+    "Education: MBA/PGDM in Operations from Manipal Academy of Higher Education (MAHE), 2021, CGPA 9.44 out of 10.",
+    "Certifications: How to Use Roadmaps in Jira; Microsoft Power BI Desktop for Business Intelligence; Copilot Studio (Coursera); The Product Owner Profession: Unleashing the Power of Scrum (Skill Up); Prompt Engineering.",
+    "Product management skills: roadmap planning, user story writing, UAT, Agile/Scrum, JIRA, product operations, market research and secondary research.",
+    "CRM and platforms: Salesforce CRM, Microsoft Dynamics 365, WalkMe, Microsoft Power Apps.",
+    "Data and analytics: Power BI, data governance, data lineage, data quality, source-to-target mapping, root cause analysis.",
+    "Tools and reporting: KPI reporting, regulatory reporting, Power BI, Excel, prompt engineering.",
+    "He has roughly 4+ years of total experience across product, data management and research (since January 2022)."
+  ],
+  "handoffTopics": [
+    "salary, CTC, compensation or notice period",
+    "current availability, joining date or interview scheduling",
+    "relocation or location preferences",
+    "consulting rates or freelance pricing",
+    "anything personal or anything not covered by the facts above"
+  ],
+  "intents": [
+    { "id": "greet", "keys": ["hi", "hello", "hey", "namaste", "good morning", "good evening"], "answer": "Hi! I'm Divyansh's assistant. Ask me about his product work at Wells Fargo, his Salesforce and WalkMe experience, or his skills. If you'd like to talk to him directly, just say so and I'll pass your message on." },
+    { "id": "about", "keys": ["who", "about", "introduce", "summary", "tell me", "background", "profile"], "answer": "Divyansh is an Associate Product Manager at Wells Fargo. He works on enterprise CRM products (Salesforce, Microsoft Dynamics 365) and the WalkMe digital adoption platform, serving 20,000+ users. Before that he spent a year in data management at Deloitte and about a year and a half in market research at Jasper Colin. He holds an MBA in Operations from Manipal (CGPA 9.44)." },
+    { "id": "current", "keys": ["current", "now", "wells fargo", "present", "role", "job", "working"], "answer": "Since August 2024 he's been an Associate Product Manager at Wells Fargo. He owns requirements and product operations for Salesforce solutions used by 20,000+ people across six Lines of Business, runs UAT and functional testing, supports data governance and regulatory reporting, and leads WalkMe digital adoption across Salesforce and Dynamics 365." },
+    { "id": "impact", "keys": ["impact", "achievement", "achievements", "result", "results", "metric", "metrics", "accomplish", "proud"], "answer": "A few outcomes from his time at Wells Fargo: workflow and process changes that cut manual effort by more than 40%, product enhancements that reduced support tickets by 30%, and Salesforce solutions supporting 20,000+ enterprise users. He also built the KPI dashboards used for executive reporting." },
+    { "id": "salesforce", "keys": ["salesforce", "crm", "sfdc", "dashboards", "data loading", "merge"], "answer": "Salesforce is his core platform. At Wells Fargo he handles user management, change requests, data loading and cleansing, account and contact merges, and reports and dashboards for six Lines of Business. At Deloitte he worked in Salesforce (Jupiter) alongside Informatica MDM 360." },
+    { "id": "walkme", "keys": ["walkme", "digital adoption", "adoption", "smarttips", "walkthrough", "dap"], "answer": "He leads digital adoption with WalkMe across Salesforce CRM, Microsoft Dynamics 365, Client Insight and other enterprise apps. He gathers user feedback, finds pain points, and builds SmartTips, Surveys, Shuttles, Walkthroughs and Launchers, tested in UAT before release." },
+    { "id": "dynamics", "keys": ["dynamics", "d365", "microsoft dynamics", "power apps", "powerapps"], "answer": "He works with Microsoft Dynamics 365 as part of the enterprise CRM landscape at Wells Fargo, mainly through WalkMe adoption programs, and has Microsoft Power Apps in his toolkit." },
+    { "id": "data", "keys": ["data", "governance", "lineage", "quality", "mapping", "migration", "retention", "regulatory", "compliance", "mdm"], "answer": "Data is a big part of his work. He has done data governance, data quality analysis, data lineage and source-to-target mapping at both Deloitte and Wells Fargo. At Wells Fargo he translated regulatory requirements for data retention and migration into product changes and data controls, and led the functional testing and UAT." },
+    { "id": "powerbi", "keys": ["power bi", "powerbi", "bi", "reporting", "kpi", "excel", "analytics"], "answer": "He builds KPI dashboards and product performance reports in Power BI and Excel, and holds the Microsoft Power BI Desktop for Business Intelligence certification. At Wells Fargo his dashboards feed executive reporting." },
+    { "id": "pm", "keys": ["product management", "roadmap", "agile", "scrum", "jira", "user story", "user stories", "uat", "requirements", "stakeholder"], "answer": "His PM toolkit: roadmap planning, user story writing, requirements gathering, UAT, Agile/Scrum ceremonies and JIRA workflows. He's certified in Jira roadmaps and as a Scrum Product Owner." },
+    { "id": "skills", "keys": ["skill", "skills", "tools", "stack", "expertise", "good at", "strengths"], "answer": "Product: roadmaps, user stories, UAT, Agile/Scrum, JIRA, market research. Platforms: Salesforce CRM, Microsoft Dynamics 365, WalkMe, Power Apps. Data: Power BI, data governance, lineage, quality, source-to-target mapping, root cause analysis. Also KPI and regulatory reporting, Excel and prompt engineering." },
+    { "id": "deloitte", "keys": ["deloitte", "analyst", "previous", "before"], "answer": "From July 2023 to July 2024 he was a Data Management Analyst at Deloitte. He set data governance standards, analysed data quality issues, gathered requirements, and reported to stakeholders, using Salesforce (Jupiter), Informatica MDM 360, Crunchbase, D&B Hoovers and Capital IQ." },
+    { "id": "jasper", "keys": ["jasper", "research", "market research", "cati", "cawi", "first job"], "answer": "His first role (January 2022 to May 2023) was Research Associate at Jasper Colin Research. He ran B2B and consumer research data collection using CATI and CAWI, on projects across automotive, insurance tech, telecom, FMCG, email security and US brand equity." },
+    { "id": "experience", "keys": ["experience", "years", "career", "history", "companies", "worked"], "answer": "About 4+ years in total: Jasper Colin Research (Research Associate, 2022 to 2023), Deloitte (Data Management Analyst, 2023 to 2024), and Wells Fargo (Associate Product Manager, August 2024 onward)." },
+    { "id": "education", "keys": ["education", "mba", "pgdm", "college", "degree", "manipal", "mahe", "university", "cgpa"], "answer": "He has an MBA/PGDM in Operations from Manipal Academy of Higher Education (2021), graduating with a CGPA of 9.44 out of 10." },
+    { "id": "certs", "keys": ["certification", "certifications", "certified", "certificate", "course", "copilot"], "answer": "Certifications: How to Use Roadmaps in Jira; Microsoft Power BI Desktop for Business Intelligence; Copilot Studio (Coursera); The Product Owner Profession: Unleashing the Power of Scrum; and Prompt Engineering." },
+    { "id": "ai", "keys": ["ai", "genai", "llm", "prompt", "copilot studio", "artificial intelligence"], "answer": "He has certifications in Copilot Studio and Prompt Engineering and lists prompt engineering among his tools. For anything specific about AI projects, I can pass your question to him." },
+    { "id": "resume", "keys": ["resume", "cv", "pdf", "download"], "answer": "You can open his resume from the \"Resume\" link at the top of the page." },
+    { "id": "contact", "keys": ["contact", "email", "phone", "reach", "linkedin", "number", "call", "talk", "connect", "message him"], "answer": "You can reach Divyansh by email at divyanshsrivastava6528@gmail.com or on LinkedIn. Or tell me what it's about and I'll send your message straight to him.", "handoff": true },
+    { "id": "hire", "keys": ["hire", "hiring", "opening", "opportunity", "position", "interview", "recruit", "recruiter", "vacancy", "jd"], "answer": "Great, he'd be glad to hear about it. I'll pass the details to him directly so he can follow up.", "handoff": true },
+    { "id": "private", "keys": ["salary", "ctc", "lpa", "compensation", "notice", "notice period", "joining", "relocate", "relocation", "location", "available", "availability", "rate", "pricing", "fees", "freelance"], "answer": "That's one Divyansh should answer himself. Leave your details and I'll send your question to him.", "handoff": true },
+    { "id": "thanks", "keys": ["thanks", "thank you", "thx", "great", "cool", "awesome"], "answer": "Happy to help. If there's anything you'd like Divyansh to answer personally, just ask and I'll route it to him." }
+  ],
+  "suggestions": [
+    "What does he do at Wells Fargo?",
+    "What impact has he delivered?",
+    "Tell me about his Salesforce experience",
+    "I'm hiring for a PM role"
+  ]
+}

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Portfolio Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: summary row, then trend, then where-from + funnel, then the people (visits, questions, messages); tokens shared with the portfolio */
+:root {
+  --paper: #F3F5F8; --surface: #FFFFFF; --ink: #131C2E; --muted: #586379; --faint: #8A93A6; --line: #D8DDE6; --grid: #E8EBF0;
+  --accent: #0A7C74; --accent-ink: #FFFFFF; --accent-soft: #DDF1EE;
+  --s1: #008A7E; --s2: #C2850F;
+  --good: #1D7A3E; --good-bg: #E2F3E8; --warn: #8A5A0B; --warn-bg: #FBEFD5; --danger: #A33A2C;
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0D1420; --surface: #141D2C; --ink: #E5EAF2; --muted: #97A2B6; --faint: #6B768A; --line: #263247; --grid: #1E2939;
+    --accent: #3CC4B8; --accent-ink: #06211F; --accent-soft: #11312F; --s1: #119286; --s2: #BD851C;
+    --good: #6FD493; --good-bg: #16301F; --warn: #F2BE5C; --warn-bg: #2B2414; --danger: #F08A7A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0D1420; --surface: #141D2C; --ink: #E5EAF2; --muted: #97A2B6; --faint: #6B768A; --line: #263247; --grid: #1E2939;
+  --accent: #3CC4B8; --accent-ink: #06211F; --accent-soft: #11312F; --s1: #119286; --s2: #BD851C;
+  --good: #6FD493; --good-bg: #16301F; --warn: #F2BE5C; --warn-bg: #2B2414; --danger: #F08A7A; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 15px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(16px, 3vw, 32px); padding-block: 20px 60px; }
+h1, h2 { font-family: var(--display); font-stretch: 110%; margin: 0; text-wrap: balance; line-height: 1.1; }
+h1 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; }
+h2 { font-size: 1.05rem; font-weight: 700; font-stretch: 104%; }
+.label { font: 500 .72rem/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+.btn { display: inline-flex; align-items: center; gap: .4em; font: 600 .9rem/1 var(--body); padding: .7em 1em; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer; text-decoration: none; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn:disabled { opacity: .6; cursor: wait; }
+
+/* top */
+.top { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+.seg button { border: 0; background: transparent; color: var(--muted); font: 500 .84rem var(--body); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.banner { border: 1px dashed var(--warn); background: var(--warn-bg); color: var(--warn); border-radius: 12px; padding: 10px 14px; margin-bottom: 16px; font-size: .9rem; }
+
+/* cards */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; min-width: 0; }
+.panel header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; margin-bottom: 16px; }
+.kpi { padding: 16px 18px; border-right: 1px solid var(--line); min-width: 0; }
+.kpi:last-child { border-right: 0; }
+.kpi b { display: block; font: 800 clamp(1.6rem, 3vw, 2.2rem)/1.1 var(--display); font-stretch: 106%; font-variant-numeric: tabular-nums; margin-top: 6px; }
+.kpi small { display: block; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+@media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .kpi { border-bottom: 1px solid var(--line); } .kpi:nth-child(2n) { border-right: 0; } .kpi:last-child { grid-column: 1 / -1; border-bottom: 0; } }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+@media (max-width: 860px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+
+/* line chart */
+.legend { display: flex; gap: 14px; font-size: .84rem; color: var(--muted); }
+.legend i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 6px; border-radius: 2px; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: 260px; overflow: visible; }
+.chart .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); border-radius: 8px; padding: 8px 10px; font-size: .8rem; line-height: 1.45; white-space: nowrap; transform: translate(-50%, -100%); top: 0; }
+.chart .tip b { font-weight: 600; }
+details.table { margin-top: 10px; }
+details.table summary { cursor: pointer; color: var(--muted); font-size: .84rem; }
+.scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+th { text-align: left; font: 500 .7rem var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 9px 10px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* bars */
+.bars { display: grid; gap: 10px; }
+.bar { display: grid; grid-template-columns: minmax(80px, 30%) minmax(0, 1fr) 88px; gap: 10px; align-items: center; font-size: .88rem; }
+.bar .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar .track { height: 14px; background: var(--grid); border-radius: 0 4px 4px 0; }
+.bar .fill { height: 100%; background: var(--s1); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar .v { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+.bar .v b { color: var(--ink); font-weight: 600; }
+@media (max-width: 520px) { .bar { grid-template-columns: minmax(0, 1fr) 88px; row-gap: 4px; } .bar .name { grid-column: 1 / -1; } }
+.empty { color: var(--muted); font-size: .9rem; padding: 12px 0; }
+
+/* pills */
+.pill { display: inline-flex; align-items: center; gap: 5px; font: 500 .74rem/1 var(--body); padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.good { background: var(--good-bg); color: var(--good); }
+.pill.warn { background: var(--warn-bg); color: var(--warn); }
+.pill.plain { background: var(--paper); color: var(--muted); border: 1px solid var(--line); }
+.q { padding-block: 10px; border-bottom: 1px solid var(--grid); display: grid; gap: 4px; }
+.q:last-child { border-bottom: 0; }
+.q .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: .78rem; color: var(--muted); }
+.list { max-height: 420px; overflow-y: auto; }
+
+/* links */
+.links { display: grid; gap: 8px; }
+.link { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.link code { font: 400 .8rem var(--mono); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; overflow-x: auto; white-space: nowrap; user-select: all; }
+.copy { border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 8px; padding: 6px 10px; font: 500 .74rem var(--mono); cursor: pointer; }
+@media (max-width: 560px) { .link { grid-template-columns: minmax(0, 1fr) auto; } .link span { grid-column: 1 / -1; } }
+
+/* login */
+.login { max-width: 420px; margin: 10vh auto 0; display: grid; gap: 16px; }
+.login input { width: 100%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 10px; padding: 11px 12px; font: 400 1rem var(--body); }
+.err { color: var(--danger); font-size: .88rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="panel login" id="login">
+    <div><span class="label">Private</span><h1 style="margin-top:6px">Portfolio Insights</h1></div>
+    <p class="muted">Visitors, chats and messages from your portfolio. Enter the dashboard password you set as <code>ADMIN_KEY</code> in Vercel.</p>
+    <form id="loginForm" style="display:grid;gap:12px">
+      <label for="key" class="label">Dashboard password</label>
+      <input id="key" type="password" autocomplete="current-password" required>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit" id="loginBtn">Open dashboard</button><button class="btn ghost" type="button" id="demoBtn">Preview with sample data</button></div>
+      <span class="err" id="loginErr" role="alert"></span>
+    </form>
+  </section>
+
+  <main id="dash" hidden>
+    <div class="banner" id="demoBanner" hidden>Sample data. This preview shows how the dashboard looks; it isn't your real traffic.</div>
+    <div class="top">
+      <div><span class="label">Divyansh Srivastava · portfolio</span><h1 style="margin-top:6px">Portfolio Insights</h1></div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Date range">
+          <button type="button" data-days="7" aria-pressed="false">7 days</button>
+          <button type="button" data-days="30" aria-pressed="true">30 days</button>
+          <button type="button" data-days="90" aria-pressed="false">90 days</button>
+        </div>
+        <button class="btn ghost" type="button" id="refresh">Refresh</button>
+        <button class="btn ghost" type="button" id="logout">Lock</button>
+      </div>
+    </div>
+    <p class="muted" id="updated" style="margin:-8px 0 14px;font-size:.82rem"></p>
+
+    <div class="kpis" id="kpis"></div>
+
+    <section class="panel">
+      <header><h2>Visitors and chatters per day</h2><div class="legend"><span><i style="background:var(--s1)"></i>Visitors</span><span><i style="background:var(--s2)"></i>Chatted with assistant</span></div></header>
+      <div class="chart" id="trend"></div>
+      <details class="table"><summary>Show daily numbers</summary><div class="scroll"><table id="dailyTable"></table></div></details>
+    </section>
+
+    <div class="grid2">
+      <section class="panel"><header><h2>Where visitors came from</h2><span class="label">visits</span></header><div class="bars" id="sources"></div></section>
+      <section class="panel"><header><h2>From visit to conversation</h2><span class="label">unique people</span></header><div class="bars" id="funnel"></div></section>
+    </div>
+
+    <section class="panel" style="margin-top:16px">
+      <header><h2>Recent visitors</h2><span class="muted" style="font-size:.82rem">Anonymous. You see names only when someone sends you a message.</span></header>
+      <div class="scroll"><table id="recent"></table></div>
+    </section>
+
+    <div class="grid2">
+      <section class="panel"><header><h2>What people asked the assistant</h2></header><div class="list" id="questions"></div></section>
+      <section class="panel"><header><h2>Messages sent to you</h2></header><div class="list" id="contacts"></div></section>
+    </div>
+
+    <section class="panel" style="margin-top:16px">
+      <header><h2>Your tracking links</h2><span class="muted" style="font-size:.82rem">Share a different link in each place to see which one people click.</span></header>
+      <div class="links" id="links"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmt = (n) => Number(n || 0).toLocaleString("en-IN");
+  const pct = (a, b) => (b ? Math.round((a / b) * 100) + "%" : "–");
+  const S = { key: "", days: 30, demo: false, data: null };
+  try { S.key = sessionStorage.getItem("pf_admin") || ""; } catch {}
+
+  /* ---------- data ---------- */
+  async function load() {
+    if (S.demo) { S.data = sample(S.days); return render(); }
+    $("#refresh").disabled = true;
+    try {
+      const r = await fetch("/api/stats?days=" + S.days, { headers: { "x-admin-key": S.key } });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || "Couldn't load the numbers (" + r.status + ").");
+      S.data = j; render();
+    } catch (e) {
+      lock(e.message);
+    } finally { $("#refresh").disabled = false; }
+  }
+
+  function lock(msg) {
+    $("#dash").hidden = true; $("#login").hidden = false;
+    $("#loginErr").textContent = msg || "";
+  }
+
+  $("#loginForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    S.key = $("#key").value.trim(); S.demo = false;
+    try { sessionStorage.setItem("pf_admin", S.key); } catch {}
+    show();
+  });
+  $("#demoBtn").onclick = () => { S.demo = true; show(); };
+  $("#logout").onclick = () => { S.key = ""; S.demo = false; try { sessionStorage.removeItem("pf_admin"); } catch {} lock(""); $("#key").value = ""; };
+  $("#refresh").onclick = load;
+  document.querySelectorAll("[data-days]").forEach((b) => b.onclick = () => {
+    S.days = +b.dataset.days;
+    document.querySelectorAll("[data-days]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    load();
+  });
+  function show() { $("#login").hidden = true; $("#dash").hidden = false; $("#demoBanner").hidden = !S.demo; $("#loginErr").textContent = ""; load(); }
+
+  /* ---------- render ---------- */
+  function render() {
+    const d = S.data, f = d.funnel, t = d.totals || {};
+    $("#updated").textContent = "Updated " + new Date(d.generatedAt).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) + " · last " + d.days + " days";
+    const kpis = [
+      ["Visitors", fmt(f.visitors), fmt(t.visits) + " visits in total"],
+      ["Chatted with assistant", fmt(f.asked), pct(f.asked, f.visitors) + " of visitors"],
+      ["Questions asked", fmt(t.questions), "across all chats"],
+      ["Messages to you", fmt(t.messages), "from the assistant and form"],
+      ["Resume opens", fmt(t.resume), fmt((t.linkedin || 0) + (t.whatsapp || 0)) + " LinkedIn / WhatsApp clicks"],
+    ];
+    $("#kpis").innerHTML = kpis.map(([l, v, s]) => `<div class="kpi"><span class="label">${l}</span><b>${v}</b><small>${s}</small></div>`).join("");
+
+    trend(d.daily);
+    $("#dailyTable").innerHTML = "<thead><tr><th>Day</th><th class='r'>Visitors</th><th class='r'>Chatted</th><th class='r'>Questions</th><th class='r'>Messages</th></tr></thead><tbody>" +
+      d.daily.slice().reverse().map((r) => `<tr><td>${dayLabel(r.day, true)}</td><td class="r">${r.visitors}</td><td class="r">${r.chatters}</td><td class="r">${r.questions}</td><td class="r">${r.messages}</td></tr>`).join("") + "</tbody>";
+
+    const src = Object.entries(d.sources).sort((a, b) => b[1] - a[1]);
+    const top = src.slice(0, 7), rest = src.slice(7).reduce((a, [, v]) => a + v, 0);
+    if (rest) top.push(["Other", rest]);
+    const max = Math.max(1, ...top.map((x) => x[1]));
+    const total = src.reduce((a, [, v]) => a + v, 0);
+    $("#sources").innerHTML = top.length ? top.map(([k, v]) => bar(k, v, max, pct(v, total))).join("") : `<p class="empty">No visits yet. Share one of your tracking links below.</p>`;
+
+    const steps = [["Visited", f.visitors], ["Opened the assistant", f.opened], ["Asked a question", f.asked], ["Sent you a message", f.messaged]];
+    $("#funnel").innerHTML = steps.map(([k, v]) => bar(k, v, Math.max(1, f.visitors), pct(v, f.visitors))).join("");
+
+    $("#recent").innerHTML = d.recent.length
+      ? "<thead><tr><th>When</th><th>Came from</th><th>Location</th><th>Device</th><th class='r'>Chat msgs</th><th>Outcome</th></tr></thead><tbody>" +
+        d.recent.map((s) => `<tr><td class="num" style="white-space:nowrap">${when(s.start)}</td><td>${esc(s.src)}${s.returning ? ' <span class="pill plain">returning</span>' : ""}</td><td>${esc([s.city, s.country].filter(Boolean).join(", ") || "Unknown")}</td><td>${esc(s.device)}</td><td class="r">${s.chat || "–"}</td><td>${outcome(s)}</td></tr>`).join("") + "</tbody>"
+      : `<tbody><tr><td class="empty">No visitors in this period yet.</td></tr></tbody>`;
+
+    $("#questions").innerHTML = d.questions.length
+      ? d.questions.map((q) => `<div class="q"><div>${esc(q.q)}</div><div class="meta"><span class="num">${when(q.t)}</span>${q.handoff ? '<span class="pill warn">Routed to you</span>' : '<span class="pill good">Answered</span>'}</div></div>`).join("")
+      : `<p class="empty">No questions yet.</p>`;
+
+    $("#contacts").innerHTML = d.contacts.length
+      ? d.contacts.map((c) => `<div class="q"><div><strong>${esc(c.intent || "Message")}</strong>${c.company ? " · " + esc(c.company) : ""}</div><div class="meta"><span class="num">${when(c.t)}</span><span>via ${c.from === "form" ? "contact form" : "assistant"}</span>${c.delivered ? '<span class="pill good">Delivered to inbox</span>' : '<span class="pill warn">Sent via WhatsApp / email fallback</span>'}</div></div>`).join("")
+      : `<p class="empty">No messages yet. Full details arrive in your email or Telegram.</p>`;
+
+    links();
+  }
+
+  function bar(name, v, max, share) {
+    return `<div class="bar"><span class="name" title="${esc(name)}">${esc(name)}</span><div class="track"><div class="fill" style="width:${(v / max) * 100}%"></div></div><span class="v"><b>${fmt(v)}</b> ${share}</span></div>`;
+  }
+  function outcome(s) {
+    if (s.contacted) return `<span class="pill good">Messaged you</span>${s.contacted.company ? " " + esc(s.contacted.company) : ""}`;
+    const bits = [];
+    if (s.chat) bits.push('<span class="pill plain">Chatted</span>');
+    if (s.clicks.includes("resume")) bits.push('<span class="pill plain">Opened resume</span>');
+    if (s.clicks.includes("linkedin")) bits.push('<span class="pill plain">LinkedIn</span>');
+    if (s.clicks.includes("whatsapp")) bits.push('<span class="pill plain">WhatsApp</span>');
+    return bits.join(" ") || '<span class="muted">Browsed</span>';
+  }
+  function when(t) {
+    const m = Math.round((Date.now() - t) / 60000);
+    if (m < 1) return "just now";
+    if (m < 60) return m + " min ago";
+    if (m < 60 * 24) return Math.round(m / 60) + " h ago";
+    return new Date(t).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+  }
+  function dayLabel(d, long) { const x = new Date(d + "T12:00:00"); return x.toLocaleDateString("en-IN", long ? { weekday: "short", day: "numeric", month: "short" } : { day: "numeric", month: "short" }); }
+
+  /* ---------- trend chart: two series, one axis ---------- */
+  function trend(rows) {
+    const box = $("#trend");
+    const W = Math.max(320, box.clientWidth || 800), H = 260, m = { l: 34, r: 92, t: 14, b: 26 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const maxV = Math.max(4, ...rows.map((r) => r.visitors));
+    const step = niceStep(maxV), top = Math.ceil(maxV / step) * step;
+    const x = (i) => m.l + (rows.length === 1 ? iw / 2 : (i / (rows.length - 1)) * iw);
+    const y = (v) => m.t + ih - (v / top) * ih;
+    let g = "";
+    for (let v = 0; v <= top; v += step) g += `<line x1="${m.l}" x2="${m.l + iw}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)" stroke-width="1"/><text x="${m.l - 8}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--faint)" font-family="var(--mono)">${v}</text>`;
+    const every = Math.max(1, Math.ceil(rows.length / Math.max(2, Math.floor(iw / 70))));
+    rows.forEach((r, i) => { if (i % every === 0 || i === rows.length - 1) g += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--faint)" font-family="var(--mono)">${dayLabel(r.day)}</text>`; });
+    const path = (k) => rows.map((r, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(r[k]).toFixed(1)).join(" ");
+    const last = rows[rows.length - 1], li = rows.length - 1;
+    let ly1 = y(last.visitors), ly2 = y(last.chatters);
+    if (Math.abs(ly1 - ly2) < 16) { if (ly1 <= ly2) ly2 = ly1 + 16; else ly1 = ly2 + 16; }
+    g += `<path d="${path("visitors")}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    g += `<path d="${path("chatters")}" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    g += `<circle cx="${x(li)}" cy="${y(last.visitors)}" r="4" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/><circle cx="${x(li)}" cy="${y(last.chatters)}" r="4" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>`;
+    g += `<text x="${x(li) + 10}" y="${ly1 + 4}" font-size="12" fill="var(--ink)">Visitors ${last.visitors}</text><text x="${x(li) + 10}" y="${ly2 + 4}" font-size="12" fill="var(--muted)">Chatted ${last.chatters}</text>`;
+    g += `<line id="cross" x1="0" x2="0" y1="${m.t}" y2="${m.t + ih}" stroke="var(--faint)" stroke-dasharray="3 3" visibility="hidden"/><g id="dots" visibility="hidden"><circle r="4" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/><circle r="4" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/></g>`;
+    g += `<rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent" id="hit"/>`;
+    box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Daily visitors and people who chatted, last ${rows.length} days">${g}</svg><div class="tip" hidden></div>`;
+    const svg = box.querySelector("svg"), tip = box.querySelector(".tip"), cross = svg.querySelector("#cross"), dots = svg.querySelector("#dots");
+    const move = (ev) => {
+      const pt = svg.getBoundingClientRect(), scale = W / pt.width;
+      const px = (ev.clientX - pt.left) * scale;
+      const i = Math.max(0, Math.min(rows.length - 1, Math.round(((px - m.l) / iw) * (rows.length - 1))));
+      const r = rows[i], cx = x(i);
+      cross.setAttribute("x1", cx); cross.setAttribute("x2", cx); cross.setAttribute("visibility", "visible");
+      const [a, b] = dots.children; a.setAttribute("cx", cx); a.setAttribute("cy", y(r.visitors)); b.setAttribute("cx", cx); b.setAttribute("cy", y(r.chatters)); dots.setAttribute("visibility", "visible");
+      tip.hidden = false;
+      tip.innerHTML = `<b>${dayLabel(r.day, true)}</b><br>Visitors ${r.visitors}<br>Chatted ${r.chatters}<br>Questions ${r.questions} · Messages ${r.messages}`;
+      const left = cx / scale; tip.style.left = Math.min(Math.max(left, 70), pt.width - 70) + "px"; tip.style.top = (m.t / scale + 4) + "px";
+    };
+    const hit = svg.querySelector("#hit");
+    hit.addEventListener("pointermove", move);
+    hit.addEventListener("pointerleave", () => { tip.hidden = true; cross.setAttribute("visibility", "hidden"); dots.setAttribute("visibility", "hidden"); });
+  }
+  function niceStep(max) { const raw = max / 4, p = Math.pow(10, Math.floor(Math.log10(raw))); return [1, 2, 5, 10].map((k) => k * p).find((s) => s >= raw); }
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => S.data && trend(S.data.daily), 150); });
+
+  /* ---------- tracking links ---------- */
+  function links() {
+    const base = /^https?:/.test(location.origin) && !location.hostname.includes("claude") ? location.origin : "https://your-site.vercel.app";
+    const list = [["LinkedIn", "linkedin"], ["Naukri", "naukri"], ["Resume PDF", "resume"], ["Email signature", "email"], ["WhatsApp", "whatsapp"], ["Job applications", "apply"]];
+    $("#links").innerHTML = list.map(([n, k], i) => `<div class="link"><span>${n}</span><code id="ln${i}">${esc(base)}/?src=${k}</code><button class="copy" type="button" data-copy="ln${i}">Copy</button></div>`).join("");
+  }
+  document.addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-copy]"); if (!b) return;
+    const el = document.getElementById(b.dataset.copy);
+    try { await navigator.clipboard.writeText(el.textContent); b.textContent = "Copied"; }
+    catch { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected"; }
+    setTimeout(() => (b.textContent = "Copy"), 1500);
+  });
+
+  /* ---------- sample data for the preview ---------- */
+  function sample(n) {
+    let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    const daily = [], now = Date.now();
+    for (let i = n - 1; i >= 0; i--) {
+      const d = new Date(now - i * 86400000), day = d.toISOString().slice(0, 10);
+      const wk = d.getDay() === 0 || d.getDay() === 6 ? 0.55 : 1;
+      const visitors = Math.round((6 + rnd() * 14) * wk * (1 + (n - i) / n * 0.6));
+      const chatters = Math.round(visitors * (0.25 + rnd() * 0.2));
+      daily.push({ day, visitors, chatters, visits: visitors + Math.round(rnd() * 4), questions: chatters * 2 + Math.round(rnd() * 3), messages: rnd() > 0.7 ? 1 + Math.round(rnd()) : 0 });
+    }
+    const sum = (k) => daily.reduce((a, r) => a + r[k], 0);
+    const V = sum("visitors");
+    const sources = { LinkedIn: Math.round(V * 0.38), Naukri: Math.round(V * 0.22), Direct: Math.round(V * 0.16), Google: Math.round(V * 0.1), "Resume PDF": Math.round(V * 0.08), WhatsApp: Math.round(V * 0.06) };
+    const cities = [["Bengaluru", "IN"], ["Hyderabad", "IN"], ["Gurugram", "IN"], ["Mumbai", "IN"], ["Pune", "IN"], ["Charlotte", "US"], ["Noida", "IN"]];
+    const srcs = Object.keys(sources), devs = ["Desktop", "Desktop", "Mobile"];
+    const recent = Array.from({ length: 14 }, (_, i) => {
+      const chat = rnd() > 0.5 ? 1 + Math.round(rnd() * 4) : 0, c = cities[i % cities.length];
+      return { start: now - (i * 3.3 + rnd()) * 3600000, src: srcs[Math.floor(rnd() * srcs.length)], city: c[0], country: c[1], device: devs[i % 3], returning: rnd() > 0.75, chat, clicks: rnd() > 0.5 ? ["resume"] : [], contacted: i === 2 ? { intent: "Hiring for a role", company: "Example Fintech (sample)" } : null };
+    });
+    const qs = ["What does he do at Wells Fargo?", "Has he worked with Salesforce Service Cloud?", "What is his notice period?", "Tell me about his WalkMe experience", "Is he open to roles in Bengaluru?", "What impact has he delivered?", "Does he know SQL?", "What certifications does he have?"];
+    const questions = qs.map((q, i) => ({ t: now - i * 5.1 * 3600000, q, handoff: /notice|open to|SQL|Service Cloud/.test(q), by: "ai" }));
+    const contacts = [{ t: now - 7 * 3600000, intent: "Hiring for a role", company: "Example Fintech (sample)", from: "form", delivered: true }, { t: now - 52 * 3600000, intent: "Asked via assistant", company: "", from: "assistant", delivered: true }, { t: now - 130 * 3600000, intent: "Project help", company: "Sample Consulting Co.", from: "form", delivered: true }];
+    const asked = Math.round(V * 0.31);
+    return { days: n, daily, sources, recent, questions, contacts, generatedAt: now,
+      totals: { visits: sum("visits"), questions: sum("questions"), messages: sum("messages"), resume: Math.round(V * 0.18), linkedin: Math.round(V * 0.07), whatsapp: Math.round(V * 0.03) },
+      funnel: { visitors: V, opened: Math.round(V * 0.44), asked, messaged: Math.max(1, sum("messages")) } };
+  }
+
+  if (S.key) show();
+})();
+</script>
+</body>
+</html>

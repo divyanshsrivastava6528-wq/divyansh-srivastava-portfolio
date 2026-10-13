@@ -1,0 +1,11 @@
+{
+  "name": "divyansh-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portfolio with an AI assistant that answers visitor questions and routes the rest to Divyansh.",
+  "scripts": {
+    "dev": "node dev-server.mjs"
+  },
+  "engines": { "node": ">=18" }
+}
